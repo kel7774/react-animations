@@ -22,7 +22,18 @@ class App extends Component {
         <h1>React Animations</h1>
         <button className='Button' onClick={() => this.setState(prevState => ({ showBlock: !prevState.showBlock }))}>Toggle</button>
         <br />
-          <Transition in={this.state.showBlock} timeout={1000} mountOnEnter unmountOnExit>
+          <Transition 
+            in={this.state.showBlock} 
+            timeout={1000} 
+            mountOnEnter
+            unmountOnExit
+            onEnter={() => console.log('on enter')}
+            onEntering={() => console.log('onEntering')}
+            onEntered={() => console.log('onEntered')}
+            onExit={() => console.log('on exit')}
+            onExiting={() => console.log('on exiting ')}
+            onExited={() => console.log('onExited')}
+          >
             {state => (
               <div 
               style={{ 
@@ -36,11 +47,7 @@ class App extends Component {
               />
             )}
             </Transition>
-            <Transition in={this.state.modalIsOpen} timeout={300} mountOnEnter unmountOnExit>
-              {state => (
-                <Modal show={state} closed={this.closeModal} />
-              )}
-            </Transition>
+            <Modal show={this.state.modalIsOpen} closed={this.closeModal} />
         {this.state.modalIsOpen ? (
           <Backdrop show={this.state.modalIsOpen} />
         ) : null}
